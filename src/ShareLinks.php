@@ -1,10 +1,10 @@
 <?php namespace xes;
-class Share {
+class ShareLinks {
 	private static $links = [
-		'facebook' => '//facebook.com/sharer/sharer.php?u={{link}}',
-		'twitter' => '//twitter.com/home?status={{link}}',
-		'google-plus' => '//plus.google.com/share?url={{link}}',
-		'pinterest' => '//pinterest.com/pin/create/button/?url={{link}}&media={{image}}'
+		'facebook' => 'http://facebook.com/sharer/sharer.php?u={{link}}',
+		'twitter' => 'http://twitter.com/home?status={{link}}',
+		'google-plus' => 'http://plus.google.com/share?url={{link}}',
+		'pinterest' => 'http://pinterest.com/pin/create/button/?url={{link}}&media={{image}}'
 	];
 
 	public static function URL($network, $link, $image = null) {
@@ -18,10 +18,6 @@ class Share {
 		}
 
 		return str_replace('{{link}}', urlencode($link), $template);
-	}
-
-	public static function button($network, $link, $image = null) {
-		return self::URL($network, $link, $image);
 	}
 }
 ?>
