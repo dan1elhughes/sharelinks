@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<project default="phpcs">
+
+	<fileset dir="." id="php">
+		<include name="**/*.php"/>
+		<exclude name="vendor/**" />
+		<exclude name="cache/**" />
+	</fileset>
+
+	<target name="phpcs">
+		<phpcodesniffer standard="PSR2" haltonerror="true">
+			<fileset refid="php"/>
+			<formatter type="full" usefile="false"/>
+		</phpcodesniffer>
+	</target>
+
+	<target name="diff">
+		<phpcodesniffer standard="PSR2">
+			<fileset refid="php"/>
+			<formatter type="diff" outfile="changes.diff"/>
+		</phpcodesniffer>
+	</target>
+
+	<target name="fix" depends="diff">
+		<exec command="patch -p0 &lt; changes.diff" passthru="true"/>
+		<exec command="rm changes.diff" passthru="true"/>
+	</target>
+</project>
