@@ -1,11 +1,13 @@
 <?xml version="1.0"?>
-<project default="phpcs">
+<project default="default">
 
 	<fileset dir="." id="php">
 		<include name="**/*.php"/>
 		<exclude name="vendor/**" />
 		<exclude name="cache/**" />
 	</fileset>
+
+	<target name="default" depends="phpcs, test"/>
 
 	<target name="phpcs">
 		<phpcodesniffer standard="PSR2" haltonerror="true">
@@ -14,14 +16,18 @@
 		</phpcodesniffer>
 	</target>
 
-	<target name="diff">
+	<target name="test">
+		<exec executable="phpunit" passthru="true" checkreturn="true">
+			<arg value="-c" />
+		 	<arg value="phpunit.xml" />
+		</exec>
+	</target>
+
+	<target name="fix">
 		<phpcodesniffer standard="PSR2">
 			<fileset refid="php"/>
 			<formatter type="diff" outfile="changes.diff"/>
 		</phpcodesniffer>
-	</target>
-
-	<target name="fix" depends="diff">
 		<exec command="patch -p0 &lt; changes.diff" passthru="true"/>
 		<exec command="rm changes.diff" passthru="true"/>
 	</target>
