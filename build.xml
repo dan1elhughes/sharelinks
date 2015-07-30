@@ -18,9 +18,8 @@
 
 	<target name="test">
 		<exec executable="phpunit" passthru="true" checkreturn="true">
-			<arg value="-c" />
-		 	<arg value="phpunit.xml" />
-			<arg value="--colors" />
+			<arg value="--bootstrap"/>
+			<arg value="vendor/autoload.php"/>
 		</exec>
 	</target>
 
