@@ -14,6 +14,11 @@ class ShareLinks
         if (!array_key_exists($network, self::$links)) {
             throw new \Exception("$network is not supported");
         }
+
+        if ($network == 'pinterest' && is_null($image)) {
+            throw new \Exception("Network '$network' requires an image");
+        }
+
         $template = self::$links[$network];
 
         if ($image) {
