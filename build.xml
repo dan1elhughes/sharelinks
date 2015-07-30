@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <project default="default">
 
+	<target name="default" depends="phpcs, test"/>
+
 	<fileset dir="." id="php">
 		<include name="**/*.php"/>
 		<exclude name="vendor/**" />
 		<exclude name="cache/**" />
 	</fileset>
-
-	<target name="default" depends="phpcs, test"/>
 
 	<target name="phpcs">
 		<phpcodesniffer standard="PSR2" haltonerror="true">
@@ -20,6 +20,7 @@
 		<exec executable="phpunit" passthru="true" checkreturn="true">
 			<arg value="-c" />
 		 	<arg value="phpunit.xml" />
+			<arg value="--colors" />
 		</exec>
 	</target>
 
