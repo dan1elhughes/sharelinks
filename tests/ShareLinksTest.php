@@ -59,7 +59,7 @@ class ShareLinksTest extends \PHPUnit_Framework_TestCase
             ],
             [
                 'google-plus',
-                 'http://plus.google.com/share?url=http%3A%2F%2Fexample.com'
+                'http://plus.google.com/share?url=http%3A%2F%2Fexample.com'
             ],
         ];
     }
