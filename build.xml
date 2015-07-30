@@ -1,13 +1,6 @@
 <?xml version="1.0"?>
 <project default="default">
-
 	<target name="default" depends="phpcs, test"/>
-
-	<fileset dir="." id="php">
-		<include name="**/*.php"/>
-		<exclude name="vendor/**" />
-		<exclude name="cache/**" />
-	</fileset>
 
 	<target name="phpcs">
 		<phpcodesniffer standard="PSR2" haltonerror="true">
@@ -17,10 +10,11 @@
 	</target>
 
 	<target name="test">
-		<exec executable="phpunit" passthru="true" checkreturn="true">
-			<arg value="--bootstrap"/>
-			<arg value="vendor/autoload.php"/>
-		</exec>
+		<phpunit haltonerror="true" haltonfailure="true" bootstrap="vendor/autoload.php">
+			<batchtest>
+				<fileset refid="tests"/>
+			</batchtest>
+		</phpunit>
 	</target>
 
 	<target name="fix">
@@ -31,4 +25,15 @@
 		<exec command="patch -p0 &lt; changes.diff" passthru="true"/>
 		<exec command="rm changes.diff" passthru="true"/>
 	</target>
+
+	<fileset dir="." id="php">
+		<include name="**/*.php"/>
+		<exclude name="vendor/**" />
+		<exclude name="cache/**" />
+	</fileset>
+
+	<fileset dir="." id="tests">
+		<include name="tests/**/*.php"/>
+	</fileset>
+
 </project>
