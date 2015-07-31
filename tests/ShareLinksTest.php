@@ -20,6 +20,13 @@ class ShareLinksTest extends \PHPUnit_Framework_TestCase
             \xes\ShareLinks::URL($network, $this->link)
         );
 
+    }
+
+    /**
+     * @dataProvider providerTextNetworks
+     */
+    public function testTextOnlyNetworksWithImageIgnored($network, $expected)
+    {
         $this->assertEquals(
             $expected,
             \xes\ShareLinks::URL($network, $this->link, $this->image)
@@ -40,7 +47,7 @@ class ShareLinksTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider providerImageNetworks
      */
-    public function testMissingImageThrowsException($network, $expected)
+    public function testImageNetworksWithoutImageThrowsException($network, $expected)
     {
         $this->setExpectedException('Exception', "Network '$network' requires an image");
         \xes\ShareLinks::URL($network, $this->link);
