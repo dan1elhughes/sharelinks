@@ -10,6 +10,12 @@ class ShareLinksTest extends \PHPUnit_Framework_TestCase
         $this->image = 'http://example.com/image.jpg';
     }
 
+    public function testInvalidNetwork()
+    {
+        $this->setExpectedException('Exception', "foobar is not supported");
+        \xes\ShareLinks::URL('foobar', $this->link);
+    }
+
     /**
      * @dataProvider providerTextNetworks
      */
